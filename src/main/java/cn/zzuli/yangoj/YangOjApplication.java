@@ -7,15 +7,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * 主类（项目启动入口）
-*
+ *
  */
 @SpringBootApplication
 @EnableScheduling
 @EnableAspectJAutoProxy(proxyTargetClass = true, exposeProxy = true)
-public class MainApplication {
+public class YangOjApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class, args);
+        SpringApplication.run(YangOjApplication.class, args);
     }
 
 }

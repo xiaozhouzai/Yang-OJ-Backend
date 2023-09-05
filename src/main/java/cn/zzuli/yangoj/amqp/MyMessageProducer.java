@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 /**
  * 消息生产者
  */
-@Component
+//@Component
 public class MyMessageProducer {
 
 

@@ -15,9 +15,9 @@ spring:
     # 30 天过期
     timeout: 2592000
   #rabbitmq配置
-  rabbitmq:
-    host: 192.168.161.128
-    port: 5672
+#  rabbitmq:
+#    host: 192.168.161.128
+#    port: 5672
     #更安全使用stream，用哈希值存储密码
 #    stream:
 #      password:
