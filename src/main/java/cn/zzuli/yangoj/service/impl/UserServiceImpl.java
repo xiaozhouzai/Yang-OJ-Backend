@@ -15,7 +15,6 @@ import cn.zzuli.yangoj.model.vo.UserVo;
 import cn.zzuli.yangoj.service.UserService;
 import cn.zzuli.yangoj.utils.SqlUtils;
 import lombok.extern.slf4j.Slf4j;
-import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
