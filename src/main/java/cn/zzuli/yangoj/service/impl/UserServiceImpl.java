@@ -17,6 +17,8 @@ import cn.zzuli.yangoj.utils.SqlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
@@ -31,6 +33,8 @@ import static com.sun.javafx.font.FontResource.SALT;
 @Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements UserService {
+    @Resource
+    private RedisTemplate<String,Object> redisTemplate;
 
     @Resource
     private UserMapper userMapper;

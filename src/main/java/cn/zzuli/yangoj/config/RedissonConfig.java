@@ -16,7 +16,6 @@ public class RedissonConfig {
     private Integer database;
     private String port;
     private String host;
-
     /**
      * 配置一个redissionClient,根据yml配置动态生成
      * @return

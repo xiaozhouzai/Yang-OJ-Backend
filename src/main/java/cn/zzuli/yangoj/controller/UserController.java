@@ -1,14 +1,6 @@
 package cn.zzuli.yangoj.controller;
 
 
-import cn.zzuli.yangoj.model.dto.user.*;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.google.gson.Gson;
-import cn.zzuli.yangoj.model.dto.user.*;
-import cn.zzuli.yangoj.model.vo.LoginUserVo;
-import cn.zzuli.yangoj.model.vo.TagVo;
-import cn.zzuli.yangoj.model.vo.UserVo;
 import cn.zzuli.yangoj.annotation.AuthCheck;
 import cn.zzuli.yangoj.common.BaseResponse;
 import cn.zzuli.yangoj.common.DeleteRequest;
@@ -17,10 +9,17 @@ import cn.zzuli.yangoj.common.ResultUtils;
 import cn.zzuli.yangoj.constant.UserConstant;
 import cn.zzuli.yangoj.exception.BusinessException;
 import cn.zzuli.yangoj.exception.ThrowUtils;
+import cn.zzuli.yangoj.model.dto.user.*;
 import cn.zzuli.yangoj.model.entity.User;
+import cn.zzuli.yangoj.model.vo.LoginUserVo;
+import cn.zzuli.yangoj.model.vo.TagVo;
+import cn.zzuli.yangoj.model.vo.UserVo;
 import cn.zzuli.yangoj.service.UserService;
 import cn.zzuli.yangoj.utils.SMSUtils;
 import cn.zzuli.yangoj.utils.ValidateCodeUtils;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -182,11 +181,6 @@ public class UserController {
         User user = userService.getLoginUser(request);
         return ResultUtils.success(userService.getLoginUserVO(user));
     }
-
-    // endregion
-
-    // region 增删改查
-
     /**
      * 创建用户
      *
@@ -265,8 +259,6 @@ public class UserController {
             String encryptPassword = DigestUtils.md5DigestAsHex((SALT + updateUserPassword).getBytes());
             userUpdateRequest.setUserPassword(encryptPassword);
         }
-
-
         //一致则不需要再次加密
         BeanUtils.copyProperties(userUpdateRequest, user);
         boolean result = userService.updateById(user);

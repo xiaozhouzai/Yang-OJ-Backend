@@ -1,6 +1,6 @@
 1）执行 `sql/create_table.sql` 中的数据库语句，自动创建库表
 
-2）启动项目，访问 `http://localhost:8900/api/doc.html` 即可打开接口文档，不需要写前端就能在线调试接口了~
+2）启动项目，访问 `http://localhost:8000/api/doc.html` 即可打开接口文档，不需要写前端就能在线调试接口了~
 ### Elasticsearch 搜索引擎
 
 1）修改 `application.yml` 的 Elasticsearch 配置为你自己的：

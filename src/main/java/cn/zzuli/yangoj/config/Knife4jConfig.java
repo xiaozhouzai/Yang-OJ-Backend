@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-@Profile({"dev"})
+@Profile({"dev"}) //只有dev环境生效
 public class Knife4jConfig {
 
     @Bean
