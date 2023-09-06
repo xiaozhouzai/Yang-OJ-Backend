@@ -1,6 +1,12 @@
 package cn.zzuli.yangoj.service;
 
+import cn.zzuli.yangoj.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import cn.zzuli.yangoj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import cn.zzuli.yangoj.model.entity.QuestionSubmit;
+import cn.zzuli.yangoj.model.entity.User;
+import cn.zzuli.yangoj.model.vo.QuestionSubmitVO;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,4 +16,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface QuestionSubmitService extends IService<QuestionSubmit> {
 
+        /**
+         * 题目提交
+         *
+         * @param questionSubmitAddRequest 题目提交信息
+         * @param loginUser
+         * @return
+         */
+        Long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser);
 }
+

@@ -11,9 +11,9 @@ import cn.zzuli.yangoj.exception.BusinessException;
 import cn.zzuli.yangoj.exception.ThrowUtils;
 import cn.zzuli.yangoj.model.dto.user.*;
 import cn.zzuli.yangoj.model.entity.User;
-import cn.zzuli.yangoj.model.vo.LoginUserVo;
-import cn.zzuli.yangoj.model.vo.TagVo;
-import cn.zzuli.yangoj.model.vo.UserVo;
+import cn.zzuli.yangoj.model.vo.LoginUserVO;
+import cn.zzuli.yangoj.model.vo.TagVO;
+import cn.zzuli.yangoj.model.vo.UserVO;
 import cn.zzuli.yangoj.service.UserService;
 import cn.zzuli.yangoj.utils.SMSUtils;
 import cn.zzuli.yangoj.utils.ValidateCodeUtils;
@@ -84,7 +84,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public BaseResponse<LoginUserVo> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
+    public BaseResponse<LoginUserVO> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
         if (userLoginRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -93,7 +93,7 @@ public class UserController {
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        LoginUserVo loginUserVO = userService.userLogin(userAccount, userPassword, request);
+        LoginUserVO loginUserVO = userService.userLogin(userAccount, userPassword, request);
         return ResultUtils.success(loginUserVO);
     }
 
@@ -127,7 +127,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/login/phone")
-    public BaseResponse<LoginUserVo> userPhoneLogin(@RequestBody UserPhoneLoginRequest userPhoneLoginRequest, HttpServletRequest request) {
+    public BaseResponse<LoginUserVO> userPhoneLogin(@RequestBody UserPhoneLoginRequest userPhoneLoginRequest, HttpServletRequest request) {
         log.info(userPhoneLoginRequest.toString());
 
         //获取手机号
@@ -149,7 +149,7 @@ public class UserController {
             throw new BusinessException(100010,"您还未注册,或者您还未关联手机号");
         }
         request.getSession().setAttribute(USER_LOGIN_STATE, user);
-        LoginUserVo loginUserVO = userService.getLoginUserVO(user);
+        LoginUserVO loginUserVO = userService.getLoginUserVO(user);
         stringRedisTemplate.delete("code");
         return ResultUtils.success(loginUserVO);
     }
@@ -177,7 +177,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/get/login")
-    public BaseResponse<LoginUserVo> getLoginUser(HttpServletRequest request) {
+    public BaseResponse<LoginUserVO> getLoginUser(HttpServletRequest request) {
         User user = userService.getLoginUser(request);
         return ResultUtils.success(userService.getLoginUserVO(user));
     }
@@ -292,7 +292,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/get/vo")
-    public BaseResponse<UserVo> getUserVOById(long id, HttpServletRequest request) {
+    public BaseResponse<UserVO> getUserVOById(long id, HttpServletRequest request) {
         BaseResponse<User> response = getUserById(id, request);
         User user = response.getData();
         return ResultUtils.success(userService.getUserVO(user));
@@ -324,8 +324,8 @@ public class UserController {
      * @return
      */
     @PostMapping("/list/page/vo")
-    public BaseResponse<Page<UserVo>> listUserVOByPage(@RequestBody UserQueryRequest userQueryRequest,
-            HttpServletRequest request) {
+    public BaseResponse<Page<UserVO>> listUserVOByPage(@RequestBody UserQueryRequest userQueryRequest,
+                                                       HttpServletRequest request) {
         if (userQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -335,8 +335,8 @@ public class UserController {
         ThrowUtils.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
         Page<User> userPage = userService.page(new Page<>(current, size),
                 userService.getQueryWrapper(userQueryRequest));
-        Page<UserVo> userVOPage = new Page<>(current, size, userPage.getTotal());
-        List<UserVo> userVO = userService.getUserVO(userPage.getRecords());
+        Page<UserVO> userVOPage = new Page<>(current, size, userPage.getTotal());
+        List<UserVO> userVO = userService.getUserVO(userPage.getRecords());
         userVOPage.setRecords(userVO);
         return ResultUtils.success(userVOPage);
     }
@@ -369,7 +369,7 @@ public class UserController {
      *
      */
     @PostMapping("/add/tag")
-    public BaseResponse<TagVo> addTag(@RequestBody TagVo tagVo,
+    public BaseResponse<TagVO> addTag(@RequestBody TagVO tagVo,
                                       HttpServletRequest request) {
         String tag = tagVo.getLabel();
         if (tag == null) {

@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.zzuli.yangoj.model.dto.user.UserQueryRequest;
 import cn.zzuli.yangoj.model.entity.User;
-import cn.zzuli.yangoj.model.vo.LoginUserVo;
-import cn.zzuli.yangoj.model.vo.UserVo;
+import cn.zzuli.yangoj.model.vo.LoginUserVO;
+import cn.zzuli.yangoj.model.vo.UserVO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -34,7 +34,7 @@ public interface UserService extends IService<User> {
      * @param request
      * @return 脱敏后的用户信息
      */
-    LoginUserVo userLogin(String userAccount, String userPassword, HttpServletRequest request);
+    LoginUserVO userLogin(String userAccount, String userPassword, HttpServletRequest request);
 
     /**
      * 获取当前登录用户
@@ -81,7 +81,7 @@ public interface UserService extends IService<User> {
      *
      * @return
      */
-    LoginUserVo getLoginUserVO(User user);
+    LoginUserVO getLoginUserVO(User user);
 
     /**
      * 获取脱敏的用户信息
@@ -89,7 +89,7 @@ public interface UserService extends IService<User> {
      * @param user
      * @return
      */
-    UserVo getUserVO(User user);
+    UserVO getUserVO(User user);
 
     /**
      * 获取脱敏的用户信息
@@ -97,7 +97,7 @@ public interface UserService extends IService<User> {
      * @param userList
      * @return
      */
-    List<UserVo> getUserVO(List<User> userList);
+    List<UserVO> getUserVO(List<User> userList);
 
     /**
      * 获取查询条件

@@ -1,24 +1,22 @@
 package cn.zzuli.yangoj.service.impl;
 
-import cn.zzuli.yangoj.constant.UserConstant;
-import cn.zzuli.yangoj.exception.BusinessException;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.zzuli.yangoj.common.ErrorCode;
 import cn.zzuli.yangoj.constant.CommonConstant;
+import cn.zzuli.yangoj.constant.UserConstant;
+import cn.zzuli.yangoj.exception.BusinessException;
 import cn.zzuli.yangoj.mapper.UserMapper;
 import cn.zzuli.yangoj.model.dto.user.UserQueryRequest;
 import cn.zzuli.yangoj.model.entity.User;
 import cn.zzuli.yangoj.model.enums.UserRoleEnum;
-import cn.zzuli.yangoj.model.vo.LoginUserVo;
-import cn.zzuli.yangoj.model.vo.UserVo;
+import cn.zzuli.yangoj.model.vo.LoginUserVO;
+import cn.zzuli.yangoj.model.vo.UserVO;
 import cn.zzuli.yangoj.service.UserService;
 import cn.zzuli.yangoj.utils.SqlUtils;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
@@ -33,8 +31,6 @@ import static com.sun.javafx.font.FontResource.SALT;
 @Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements UserService {
-    @Resource
-    private RedisTemplate<String,Object> redisTemplate;
 
     @Resource
     private UserMapper userMapper;
@@ -78,7 +74,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements U
     }
 
     @Override
-    public LoginUserVo userLogin(String userAccount, String userPassword, HttpServletRequest request) {
+    public LoginUserVO userLogin(String userAccount, String userPassword, HttpServletRequest request) {
         // 1. 校验
         if (StringUtils.isAnyBlank(userAccount, userPassword)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数为空");
@@ -167,29 +163,29 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>  implements U
     }
 
     @Override
-    public LoginUserVo getLoginUserVO(User user) {
+    public LoginUserVO getLoginUserVO(User user) {
         if (user == null) {
             return null;
         }
-        LoginUserVo loginUserVO = new LoginUserVo();
+        LoginUserVO loginUserVO = new LoginUserVO();
         BeanUtils.copyProperties(user, loginUserVO);
         return loginUserVO;
 
     }
 
     @Override
-    public UserVo getUserVO(User user) {
+    public UserVO getUserVO(User user) {
         if (user == null) {
             return null;
         }
-        UserVo userVO = new UserVo();
+        UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
         return userVO;
 
     }
 
     @Override
-    public List<UserVo> getUserVO(List<User> userList) {
+    public List<UserVO> getUserVO(List<User> userList) {
         if (CollectionUtils.isEmpty(userList)) {
             return new ArrayList<>();
         }
