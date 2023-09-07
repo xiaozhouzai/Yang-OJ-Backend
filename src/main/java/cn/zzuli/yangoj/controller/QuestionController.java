@@ -251,8 +251,6 @@ public class QuestionController {
         return ResultUtils.success(questionPage);
     }
 
-    // endregion
-
     /**
      * 编辑（用户）
      *

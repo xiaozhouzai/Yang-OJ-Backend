@@ -14,7 +14,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 @RestController
 
 @RequestMapping("/queue")
-//@EnvCheck(mustEnv = "dev")
 @Profile({"dev","local"}) //制定配置的生效环境
 public class QueueController {
 
@@ -51,6 +50,4 @@ public class QueueController {
         map.put("已完成任务数",completedTaskCount);
         return JSONUtil.toJsonStr(map);
     }
-
-
 }

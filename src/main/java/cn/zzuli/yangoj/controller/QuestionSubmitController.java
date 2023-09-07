@@ -1,7 +1,7 @@
 package cn.zzuli.yangoj.controller;
 
 
-
+import cn.zzuli.yangoj.annotation.AuthCheck;
 import cn.zzuli.yangoj.common.BaseResponse;
 import cn.zzuli.yangoj.common.ErrorCode;
 import cn.zzuli.yangoj.common.ResultUtils;
@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import static cn.zzuli.yangoj.constant.UserConstant.ADMIN_ROLE;
+
 /**
  * 题目提交接口
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @RestController
 @RequestMapping("/question_submit")
@@ -61,6 +61,29 @@ public class QuestionSubmitController {
         long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
         return ResultUtils.success(questionSubmitId);
     }
+
+    /**
+     * 获取分页提交结果
+     * @param questionSubmitQueryRequest
+     * @param request
+     * @return
+     */
+
+    @AuthCheck(mustRole = ADMIN_ROLE )
+    @PostMapping("/list/page")
+    public BaseResponse<Page<QuestionSubmitVO>> listQuestionSubmitPage(
+            @RequestBody QuestionSubmitQueryRequest questionSubmitQueryRequest,
+            HttpServletRequest request) {
+
+        User loginUser = userService.getLoginUser(request);
+        long current = questionSubmitQueryRequest.getCurrent();
+        long pageSize = questionSubmitQueryRequest.getPageSize();
+        Page<QuestionSubmit> questionSubmitPage = questionSubmitService.page(new Page<>(current,pageSize),
+                questionSubmitService.getQueryWrapper(questionSubmitQueryRequest));
+        return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage,loginUser));
+
+    }
+
 
 }
 
